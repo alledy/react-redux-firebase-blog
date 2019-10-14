@@ -43,7 +43,7 @@ const Home = (props) => {
 
     return (
         <div className="posts container">
-            <PostForm onPostSubmit={writePostHandler} />
+            {/* <PostForm onPostSubmit={writePostHandler} /> */}
             {postList}
             <style jsx>{`
                 .container {

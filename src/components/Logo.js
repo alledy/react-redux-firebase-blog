@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Logo = () => {
+const Logo = ({ to }) => {
     return (
-        <a className="navbar-brand" href="/">
-            <i className="fab fa-facebook-square" />
+        <>
+            <Link to={to} className="navbar-brand">
+                <i className="fab fa-facebook-square" />
+            </Link>
 
             <style jsx>{`
                 .navbar-brand i.fa-facebook-square {
@@ -11,7 +14,7 @@ const Logo = () => {
                     color: white;
                 }
             `}</style>
-        </a>
+        </>
     );
 };
 

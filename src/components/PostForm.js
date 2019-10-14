@@ -1,70 +1,83 @@
 import React, { useState, useRef, useEffect } from 'react';
+import connectStore from '@/hocs/connectStore';
+import CodeEditor from '@/components/CodeEditor';
+import MarkdownPreview from '@/components/MarkdownPreview';
 
 const PostForm = (props) => {
-    const {
-        minHeight = 100,
-        lineHeight = 20,
-        placeholder = '무슨 생각을 하고 계신가요?',
-        onPostSubmit = () => {},
-    } = props;
-    const textareaEl = useRef(null);
-    const [contents, setContents] = useState('');
-
-    // textarea 높이 자동 조절
-    useEffect(() => {
-        textareaEl.current.style.height = 'auto';
-        textareaEl.current.style.height = textareaEl.current.scrollHeight + lineHeight + 'px';
-    }, [contents]);
-
     return (
-        <form
-            className="write-form"
-            onSubmit={(e) => {
-                e.preventDefault();
-                onPostSubmit(contents);
-                setContents('');
-            }}>
-            <textarea
-                className="form-control input-lg"
-                placeholder={placeholder}
-                spellCheck="false"
-                ref={textareaEl}
-                value={contents}
-                onChange={(e) => setContents(e.target.value)}
-            />
-            <button type="submit" className="btn btn-primary" disabled={!contents.trim().length}>
-                공유하기
-            </button>
-
-            <style jsx global>{`
-                .write-form > textarea.form-control {
-                    min-height: ${minHeight}px;
-                    line-height: ${lineHeight}px;
-                    padding: 20px;
-                    font-size: 18px;
-                    resize: none;
-                    border: none;
-                    border-radius: 0.5rem;
-                    transition: box-shadow ease-in-out 1s;
+        <div className="write-template">
+            <div className="write-header"></div>
+            <div className="rest">
+                <div className="pane left">
+                    <div className="write-title">
+                        <input
+                            placeholder="제목을 입력해주세요"
+                            onChange={(e) => props.actions.editPostTitle(e.target.value)}
+                            value={props.posts.edit.title}
+                        />
+                    </div>
+                    {/* <div className="editor">
+                        <div style={{ overflow: 'hidden', position: 'relative' }}>
+                            <textarea placeholder="나누고 싶은 이야기를 적어보세요"></textarea>
+                        </div>
+                    </div> */}
+                    <CodeEditor editBody={props.actions.editPostBody} body={props.posts.edit.body} />
+                </div>
+                <div className="pane right">
+                    <MarkdownPreview title={props.posts.edit.title} body={props.posts.edit.body} />
+                </div>
+            </div>
+            <style jsx>{`
+                .write-template {
+                    height: 100vh;
+                    display: block;
+                    margin-top: 0;
+                    padding-top: 0;
                 }
-                .write-form > textarea:focus {
-                    box-shadow: #999999 0 0 50px;
+                .write-header {
+                    display: flex;
+                    width: 100%;
+                    height: 4rem;
                 }
-                .write-form > button.btn {
-                    float: right;
-                    margin-bottom: 0;
-                    margin-top: 16px;
-                    background-color: #3b5999;
-                    color: #fffffe;
-                    border: none;
-                    font-weight: 800;
+                .rest {
+                    display: flex;
+                    width: 100%;
+                    height: calc(100% - 4rem);
+                    position: relative;
                 }
-                .write-form {
-                    margin-bottom: 100px;
+                .write-title {
+                    position: relative;
+                    z-index: 15;
+                    height: 4rem;
+                    padding: 0.75rem;
+                    display: flex;
+                    color: #fff;
+                    background-color: rgb(52, 58, 64);
+                    width: 100%;
+                }
+                .write-title input {
+                    background-color: rgba(0, 0, 0, 0);
+                    color: #fff;
+                    border-style: none;
+                    outline: none;
+                    font-size: 1.25rem;
+                    width: 100%;
+                }
+                .pane {
+                    display: flex;
+                    position: relative;
+                    flex: 0.5 1 0%;
+                }
+                .left {
+                    background-color: rgb(38, 50, 56);
+                    flex-direction: column;
+                }
+                .right {
+                    background-color: #fff;
                 }
             `}</style>
-        </form>
+        </div>
     );
 };
 
-export default PostForm;
+export default connectStore(PostForm);

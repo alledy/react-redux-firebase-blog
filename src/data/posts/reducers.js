@@ -9,6 +9,7 @@ function entities(state = {}, action = {}) {
                 [Object.keys(state).length]: {
                     seq: Object.keys(state).length,
                     writer: action.user,
+                    title: action.title,
                     contents: action.contents,
                     createAt: Date.now(),
                     likes: 0,
@@ -41,7 +42,19 @@ function ids(state = [], action = {}) {
     }
 }
 
+function edit(state = { title: '', body: '' }, action = {}) {
+    switch (action.type) {
+        case ActionTypes.EDIT_POST_BODY:
+            return { ...state, body: action.body };
+        case ActionTypes.EDIT_POST_TITLE:
+            return { ...state, title: action.title };
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     entities,
     ids,
+    edit,
 });
