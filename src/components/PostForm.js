@@ -16,11 +16,6 @@ const PostForm = (props) => {
                             value={props.posts.edit.title}
                         />
                     </div>
-                    {/* <div className="editor">
-                        <div style={{ overflow: 'hidden', position: 'relative' }}>
-                            <textarea placeholder="나누고 싶은 이야기를 적어보세요"></textarea>
-                        </div>
-                    </div> */}
                     <CodeEditor editBody={props.actions.editPostBody} body={props.posts.edit.body} />
                 </div>
                 <div className="pane right">

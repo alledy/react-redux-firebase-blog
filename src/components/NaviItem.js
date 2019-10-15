@@ -2,21 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import toggle from '@/hocs/toggle';
 
-const NaviItem = ({ to, text, action }) => {
+const NaviItem = ({ to, text, action, edit, show, editBody, editTitle }) => {
     const onClickAnchor = (e) => {
         if (action) {
             e.preventDefault();
             e.stopPropagation();
-            action();
+            action(edit.title, edit.body, show);
+            editTitle('');
+            editBody('');
         }
     };
 
     return (
         <li className="nav-item">
-            {/* <a href={to} onClick={onClickAnchor} className="nav-link">
-                {text}
-            </a> */}
-            <Link to={to} className="nav-link">
+            <Link to={to} className="nav-link" onClick={(e) => onClickAnchor(e)}>
                 {text}
             </Link>
         </li>

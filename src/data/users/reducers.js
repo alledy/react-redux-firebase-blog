@@ -2,8 +2,8 @@ import * as ActionTypes from '@/data/rootActionTypes';
 
 const initialState = {
     name: 'harry',
-    profileImageUrl:
-        'https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png',
+    email: 'test@gmail.com',
+    password: '1234',
 };
 
 export default function user(state = initialState, action = {}) {

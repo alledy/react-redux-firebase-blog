@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'app.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'public'),
     },
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     module: {

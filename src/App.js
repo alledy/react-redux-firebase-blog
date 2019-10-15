@@ -33,7 +33,7 @@ const App = (props) => {
                         malgun gothic, '돋움', Dotum, sans-serif;
                     color: #202b3d;
                     background-color: #e9eaed;
-                    font-size: 12px;
+                    font-size: 1.2rem;
                     font-weight: 400;
                     line-height: 1.5;
                     display: flex;

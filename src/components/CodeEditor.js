@@ -10,9 +10,6 @@ import 'codemirror/theme/material.css';
 import 'codemirror/addon/scroll/simplescrollbars.css';
 
 const CodeEditor = ({ editBody, body }) => {
-    // const [editor, setEditor] = useState(null);
-    // const [codeMirror, setCodeMirror] = useState(null);
-    // const [contents, setContents] = useState('');
     const editor = useRef();
     let codeMirror = null;
     let cursor = null;
@@ -33,10 +30,6 @@ const CodeEditor = ({ editBody, body }) => {
         cursor = body.getCursor();
         editBody(body.getValue());
     };
-
-    // const onTextareaChange = (e) => {
-    //     editBody(e.target.value);
-    // };
 
     useEffect(() => initialize(), []);
     useEffect(() => {

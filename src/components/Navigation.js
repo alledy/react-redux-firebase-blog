@@ -5,7 +5,7 @@ import Profile from '@/components/Profile';
 import NaviItem from '@/components/NaviItem';
 import * as ROUTES from '@/constants/routes';
 
-const Navigation = ({ user, actions, location }) => {
+const Navigation = ({ user, actions, location, posts }) => {
     return (
         <nav className="navbar fixed-top bg-white">
             <Logo to={ROUTES.HOME} />
@@ -17,7 +17,15 @@ const Navigation = ({ user, actions, location }) => {
                 <NaviItem to={ROUTES.SIGN_IN} text="로그인" show={!user} />
                 {/* <NaviItem to={ROUTES.LANDING} text="메인" show={!user} /> */}
                 {location.pathname == ROUTES.WRITE ? (
-                    <NaviItem to={ROUTES.HOME} text="저장" show={user} />
+                    <NaviItem
+                        to={ROUTES.HOME}
+                        text="저장"
+                        show={user}
+                        action={actions.writePost}
+                        edit={posts.edit}
+                        editBody={actions.editPostBody}
+                        editTitle={actions.editPostTitle}
+                    />
                 ) : (
                     <NaviItem to={ROUTES.WRITE} text="글쓰기" show={user} />
                 )}
@@ -46,7 +54,7 @@ const Navigation = ({ user, actions, location }) => {
                     line-height: 26px;
                 }
                 .nav :global(.nav-item .nav-link:hover) {
-                    color: rgba(255, 255, 255, 0.75);
+                    color: 'red';
                 }
             `}</style>
         </nav>
