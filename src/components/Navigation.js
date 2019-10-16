@@ -5,7 +5,7 @@ import Profile from '@/components/Profile';
 import NaviItem from '@/components/NaviItem';
 import * as ROUTES from '@/constants/routes';
 
-const Navigation = ({ user, actions, location, posts }) => {
+const Navigation = ({ user, actions, location, posts, history }) => {
     return (
         <nav className="navbar fixed-top bg-white">
             <Logo to={ROUTES.HOME} />
@@ -25,6 +25,7 @@ const Navigation = ({ user, actions, location, posts }) => {
                         edit={posts.edit}
                         editBody={actions.editPostBody}
                         editTitle={actions.editPostTitle}
+                        history={history}
                     />
                 ) : (
                     <NaviItem to={ROUTES.WRITE} text="글쓰기" show={user} />
@@ -49,7 +50,7 @@ const Navigation = ({ user, actions, location, posts }) => {
                 .nav :global(.nav-item .nav-link) {
                     color: black;
                     font-weight: 800;
-                    font-size: 12px;
+                    font-size: 0.75rem;
                     cursor: pointer;
                     line-height: 26px;
                 }

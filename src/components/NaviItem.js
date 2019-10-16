@@ -2,14 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import toggle from '@/hocs/toggle';
 
-const NaviItem = ({ to, text, action, edit, show, editBody, editTitle }) => {
+const NaviItem = ({ to, text, action, edit, show, editBody, editTitle, history }) => {
     const onClickAnchor = (e) => {
         if (action) {
             e.preventDefault();
             e.stopPropagation();
-            action(edit.title, edit.body, show);
-            editTitle('');
-            editBody('');
+            if (!edit.title) {
+                alert('제목을 입력해주세요');
+            } else {
+                action(edit.title, edit.body, show, history);
+                editTitle('');
+                editBody('');
+            }
         }
     };
 

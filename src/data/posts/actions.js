@@ -1,18 +1,39 @@
 import * as ActionTypes from '@/data/rootActionTypes';
 import { postsRef } from '@/config/firebase';
+import { snapshotToArray } from '@/utils/snapshotToArray';
 
-export function incrementSeq() {
-    return {
-        type: ActionTypes.INCREMENT_SEQ,
-    };
-}
+// export function incrementSeq(seq) {
+//     return async function(dispatch) {
+//         dispatch({ type: ActionTypes.INCREMENT_SEQ });
+//         await seqRef.push().set(seq);
+//     };
+// }
 
-export function writePost(title, contents, user) {
-    return async function(dispatch, getState) {
+// export function getSeq() {
+//     return async function(dispatch) {
+//         seqRef.on('value', (snapshot) => {
+//             const payload = snapshotToArray(snapshot);
+
+//             if (payload.length > 0) {
+//                 dispatch({
+//                     type: ActionTypes.GET_SEQ,
+//                     payload: payload[0],
+//                 });
+//             } else {
+//                 dispatch({
+//                     type: ActionTypes.GET_SEQ,
+//                     payload: 0,
+//                 });
+//             }
+//         });
+//     };
+// }
+
+export function writePost(title, contents, user, history) {
+    return async function(dispatch) {
         try {
-            const { seq } = getState();
+            dispatch({ type: ActionTypes.WRITE_POST });
             const newPost = {
-                seq,
                 writer: user,
                 title,
                 contents,
@@ -22,7 +43,8 @@ export function writePost(title, contents, user) {
                 likesOfMe: false,
             };
             await postsRef.push().set(JSON.parse(JSON.stringify(newPost)));
-            dispatch(incrementSeq());
+            history.push('/home');
+            // dispatch(incrementSeq(seq + 1));
         } catch (e) {
             alert('포스트 저장에 실패하였습니다.');
             console.error(e);
@@ -32,10 +54,11 @@ export function writePost(title, contents, user) {
 
 export function fetchPosts() {
     return async function(dispatch) {
-        postsRef.on('value', (snapshot) => {
+        await postsRef.on('value', (snapshot) => {
+            const payload = snapshotToArray(snapshot);
             dispatch({
                 type: ActionTypes.FETCH_POSTS,
-                payload: snapshot.val(),
+                payload,
             });
         });
     };

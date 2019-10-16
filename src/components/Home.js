@@ -7,7 +7,18 @@ const Home = (props) => {
     //     props.posts.entities,
     //     props.posts.ids,
     // ]);
-    useMemo(() => console.log('홈 ', props.posts.entities), [props.posts.entities]);
+
+    // const postList = useCallback(() => {
+    //     props.posts.entities.map((post, index) => {
+    //         console.log('useMemo ', post);
+    //         return <Post key={index} post={post} />;
+    //     });
+    // }, [props.posts.entities]);
+
+    const postList = props.posts.entities.map((post, index) => {
+        return <Post key={index} post={post} />;
+    });
+
     // const writePostHandler = useCallback(
     //     (contents) => {
     //         props.actions.writePost(contents, props.user);
@@ -43,11 +54,15 @@ const Home = (props) => {
 
     return (
         <div className="posts container">
+            <div className="blank"></div>
             {/* <PostForm onPostSubmit={writePostHandler} /> */}
-            {/* {postList} */}
+            {postList}
             <style jsx>{`
                 .container {
                     max-width: 600px;
+                }
+                .blank {
+                    margin-bottom: 6rem;
                 }
             `}</style>
         </div>
