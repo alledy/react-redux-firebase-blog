@@ -54,15 +54,11 @@ const Home = (props) => {
 
     return (
         <div className="posts container">
-            <div className="blank"></div>
             {/* <PostForm onPostSubmit={writePostHandler} /> */}
             {postList}
             <style jsx>{`
                 .container {
                     max-width: 600px;
-                }
-                .blank {
-                    margin-bottom: 6rem;
                 }
             `}</style>
         </div>

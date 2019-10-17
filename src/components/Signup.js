@@ -7,7 +7,7 @@ function SignUp() {
             <form>
                 <input type="email" className="form-control" placeholder="Email" required />
                 <input type="text" className="form-control" placeholder="Your Name" required />
-                <input type="file" className="form-control" placeholder="Profile" />
+                {/* <input type="file" className="form-control" placeholder="Profile" /> */}
                 <input type="password" className="form-control" placeholder="Password" minLength="5" required />
                 <input type="password" className="form-control" placeholder="Repeat your password" required />
                 <button className="btn btn-lg btn-primary btn-block" type="submit">
@@ -21,6 +21,9 @@ function SignUp() {
                 </a>
             </p>
             <style jsx global>{`
+                .signup h1 {
+                    margin-top: 100px;
+                }
                 .signup form {
                     max-width: 320px;
                     padding: 8px;

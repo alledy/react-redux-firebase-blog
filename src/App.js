@@ -5,20 +5,24 @@ import Home from '@/components/Home';
 import Loading from '@/components/Loading';
 import NotFound from '@/components/NotFound';
 import PostForm from '@/components/PostForm';
+import Login from '@/components/Login';
+import SignUp from '@/components/Signup';
 import * as ROUTES from '@/constants/routes';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 const App = (props) => {
-    // useEffect(() => {
-    //     props.actions.login();
-    // }, []);
+    useEffect(() => {
+        props.actions.fetchUser();
+    }, []);
 
     return (
         <div>
             <Route path={ROUTES.LANDING} component={Navigation} />
             <Switch>
                 <Route exact path={[ROUTES.LANDING, ROUTES.HOME]} component={Home} />
-                <Route path={ROUTES.WRITE} component={PostForm} />
+                <Route path={ROUTES.WRITE} render={() => <PostForm user={props.user} history={props.history} />} />
+                <Route path={ROUTES.LOGIN} render={() => <Login login={props.actions.login} />} />
+                <Route path={ROUTES.SIGN_UP} component={SignUp} />
                 <Route component={NotFound} />
             </Switch>
             <Loading show={false} />
@@ -33,7 +37,7 @@ const App = (props) => {
                         malgun gothic, '돋움', Dotum, sans-serif;
                     color: #202b3d;
                     background-color: #e9eaed;
-                    font-size: 1.2rem;
+                    font-size: 1.1rem;
                     font-weight: 400;
                     line-height: 1.5;
                     display: flex;
@@ -43,13 +47,13 @@ const App = (props) => {
                 }
 
                  {
-                    /* body {
-                    padding: 100px 0;
-                } */
+                    body {
+                        padding-top: 4rem;
+                    }
                 }
             `}</style>
         </div>
     );
 };
 
-export default connectStore(App);
+export default withRouter(connectStore(App));

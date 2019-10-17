@@ -10,7 +10,7 @@ const Logo = ({ to }) => {
 
             <style jsx>{`
                 img {
-                    height: 3rem;
+                    height: 3.2rem;
                     padding-bottom: 0.5rem;
                 }
             `}</style>

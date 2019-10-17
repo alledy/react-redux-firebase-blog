@@ -1,6 +1,10 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
-function Login() {
+function Login({ login, history }) {
+    const handleGoogleAuth = () => {
+        login(history);
+    };
     return (
         <div className="login container">
             <h1 className="text-center">로그인</h1>
@@ -10,7 +14,11 @@ function Login() {
                 <button className="btn btn-lg btn-primary btn-block" type="submit">
                     로그인
                 </button>
+                <button className="btn btn-lg btn-danger btn-block" type="submit" onClick={handleGoogleAuth}>
+                    Google 로그인
+                </button>
             </form>
+
             <p className="text-help text-center">
                 계정이 필요하신가요?{' '}
                 <a className="text-center new-account" href="/signup">
@@ -18,6 +26,9 @@ function Login() {
                 </a>
             </p>
             <style jsx global>{`
+                .login h1 {
+                    margin-top: 100px;
+                }
                 .login form {
                     max-width: 320px;
                     padding: 8px;
@@ -28,8 +39,15 @@ function Login() {
                     height: auto;
                     padding: 10px;
                 }
-                .login button.btn {
+                .login button.btn-primary {
                     background-color: #3b5999;
+                    color: #fffffe;
+                    font-weight: 800;
+                    border-color: unset;
+                    margin-top: 10px;
+                }
+                .login button.btn-danger {
+                    background-color: #ea4335;
                     color: #fffffe;
                     font-weight: 800;
                     border-color: unset;
@@ -47,4 +65,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default withRouter(Login);

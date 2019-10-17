@@ -2,6 +2,7 @@ import React from 'react';
 import connectStore from '@/hocs/connectStore';
 import CodeEditor from '@/components/CodeEditor';
 import MarkdownPreview from '@/components/MarkdownPreview';
+import requireAuth from '@/hocs/requireAuth';
 
 const PostForm = (props) => {
     return (
@@ -32,12 +33,11 @@ const PostForm = (props) => {
                 .write-header {
                     display: flex;
                     width: 100%;
-                    height: 4rem;
                 }
                 .rest {
                     display: flex;
                     width: 100%;
-                    height: calc(100% - 4rem);
+                    height: 100%;
                     position: relative;
                 }
                 .write-title {
@@ -75,4 +75,4 @@ const PostForm = (props) => {
     );
 };
 
-export default connectStore(PostForm);
+export default connectStore(requireAuth(PostForm));
