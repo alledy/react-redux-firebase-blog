@@ -1,6 +1,8 @@
 import React, { useMemo, useEffect, useCallback } from 'react';
 import connectStore from '@/hocs/connectStore';
 import Post from '@/components/Post';
+import { Route } from 'react-router-dom';
+import * as ROUTES from '@/constants/routes';
 
 const Home = (props) => {
     // const posts = useMemo(() => props.posts.ids.map((id) => props.posts.entities[id]), [
@@ -15,9 +17,28 @@ const Home = (props) => {
     //     });
     // }, [props.posts.entities]);
 
-    const postList = props.posts.entities.map((post, index) => {
-        return <Post key={index} post={post} />;
-    });
+    // 최신순 정렬
+    const postList = props.posts.entities
+        .slice(0)
+        .reverse()
+        .map((post, index) => {
+            return <Post key={index} post={post} index={post.index} />;
+        });
+
+    // const postsObj = useMemo(() => {
+    //     props.posts.entities.reduce((acc, cur) => {
+    //         acc[cur.key] = cur;
+    //         return acc;
+    //     }, {});
+    // }, [props.posts.entities]);
+
+    // const userClickHandler = (user) => {
+    //     const userPostArr = props.posts.entities.filter(
+    //         (post) => post.writer.email == props.user.email || post.writer.name == props.user.name
+    //     );
+
+    //     const userPostList = userPostArr.map(post, index);
+    // };
 
     // const writePostHandler = useCallback(
     //     (contents) => {
@@ -53,15 +74,15 @@ const Home = (props) => {
     }, []);
 
     return (
-        <div className="posts container">
-            {/* <PostForm onPostSubmit={writePostHandler} /> */}
-            {postList}
+        <>
+            {/* <Route path={ROUTES.USER_POST} component={userPostList} /> */}
+            <div className="posts container">{postList}</div>
             <style jsx>{`
                 .container {
                     max-width: 600px;
                 }
             `}</style>
-        </div>
+        </>
     );
 };
 

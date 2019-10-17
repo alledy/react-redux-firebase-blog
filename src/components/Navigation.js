@@ -12,8 +12,7 @@ const Navigation = ({ user, actions, location, posts, history }) => {
             <Logo to={ROUTES.HOME} />
             <ul className="nav">
                 {/* 로그인하지 않은 상태 */}
-                <NaviItem to={ROUTES.LOGIN} text="로그인" show={!user} />
-                <NaviItem to={ROUTES.SIGN_UP} text="회원가입" show={!user} />
+                <NaviItem to={ROUTES.LOGIN} text="시작하기" show={!user} />
 
                 {/* 로그인한 상태 */}
                 <NaviItem to={ROUTES.HOME} text="홈" show={user} />

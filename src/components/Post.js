@@ -3,8 +3,8 @@ import classnames from 'classnames';
 import locale from 'date-fns/locale/ko';
 import distanceInWords from 'date-fns/distance_in_words_to_now';
 import removeMd from 'remove-markdown';
-import CommentList from '@/components/CommentList';
-import CommentForm from '@/components/CommentForm';
+
+import { Link } from 'react-router-dom';
 
 // const Post = ({ post, comments = [], onLikePost, onCommentSubmit }) => {
 //     const {
@@ -19,10 +19,10 @@ import CommentForm from '@/components/CommentForm';
 //         locale,
 //         addSuffix: true,
 //     });
-//     const likeHandler = (e) => {
-//         e.preventDefault();
-//         onLikePost(post.seq);
-//     };
+// const likeHandler = (e) => {
+//     e.preventDefault();
+//     onLikePost(post.seq);
+// };
 
 //     return (
 //         <div className="card">
@@ -90,23 +90,30 @@ import CommentForm from '@/components/CommentForm';
 //     );
 // };
 
-const Post = ({ post }) => {
+const Post = ({ post, index }) => {
     const datetime = distanceInWords(post.createAt, {
         locale,
         addSuffix: true,
     });
     const plainContents = removeMd(post.contents).replace(/\n+/g, ' ');
+
     return (
         <div className="card">
             <div className="card-body">
-                <h5 className="card-title">{post.title}</h5>
+                {/* <span className="card-subtitle writer text-muted">{post.writer.name || post.writer.email}</span> */}
+                <h5 className="card-title">
+                    <Link to={`/${post.writer.name || post.writer.email}/${index}`}>{post.title}</Link>
+                </h5>
                 <div>
-                    <span className="card-subtitle text-muted">{post.writer.name || post.writer.email}</span>
-                    {'  '}
-                    <span className="card-subtitle text-muted">{datetime}</span>
+                    <span className="card-subtitle writer text-muted">{post.writer.name || post.writer.email}</span>
+                    <span className="card-subtitle text-muted">
+                        {' · '}
+                        {datetime}
+                    </span>
                 </div>
 
-                <p className="card-text">{plainContents}</p>
+                <p className="card-text text-muted">{plainContents}</p>
+
                 <hr />
                 <div className="card-info">
                     <button type="button" className="thumb-count">
@@ -134,6 +141,17 @@ const Post = ({ post }) => {
                 }
                 .card .card-subtitle {
                     font-size: 0.8rem;
+                }
+                .card .writer {
+                    color: #3b5999 !important;
+                }
+                .card a {
+                    color: black;
+                    text-decoration: none;
+                    font-weight: 700;
+                }
+                .card a:hover {
+                    color: rgb(52, 58, 64);
                 }
                 .card .card-body {
                     padding: 40px;

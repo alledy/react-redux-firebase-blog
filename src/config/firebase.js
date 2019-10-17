@@ -11,7 +11,7 @@ export const google_provider = new firebase.auth.GoogleAuthProvider();
 export const facebook_provider = new firebase.auth.FacebookAuthProvider();
 
 export const actionCodeSettings = {
-    url: 'http://localhost:1234/login',
+    url: 'http://guru-f5f80.firebaseapp.com/login',
     handleCodeInApp: true,
     // When multiple custom dynamic link domains are defined, specify which
     // one to use.

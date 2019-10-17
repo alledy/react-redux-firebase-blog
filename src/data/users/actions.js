@@ -71,7 +71,7 @@ export function verifySignIn(history) {
     };
 }
 
-export function fetchUser() {
+export function fetchUser(history) {
     return async function(dispatch) {
         authRef.onAuthStateChanged((user) => {
             if (user) {
@@ -84,6 +84,7 @@ export function fetchUser() {
                     type: ActionTypes.RESET_AUTH,
                     user: null,
                 });
+                history.push('/login');
             }
         });
     };

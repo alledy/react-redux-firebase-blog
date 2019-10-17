@@ -7,12 +7,14 @@ import NotFound from '@/components/NotFound';
 import PostForm from '@/components/PostForm';
 import Login from '@/components/Login';
 import SignUp from '@/components/Signup';
+import PostDetail from '@/components/PostDetail';
 import * as ROUTES from '@/constants/routes';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 const App = (props) => {
+    const { posts, user, history, actions } = props;
     useEffect(() => {
-        props.actions.fetchUser();
+        props.actions.fetchUser(history);
     }, []);
 
     return (
@@ -20,21 +22,22 @@ const App = (props) => {
             <Route path={ROUTES.LANDING} component={Navigation} />
             <Switch>
                 <Route exact path={[ROUTES.LANDING, ROUTES.HOME]} component={Home} />
-                <Route path={ROUTES.WRITE} render={() => <PostForm user={props.user} history={props.history} />} />
+                <Route path={ROUTES.WRITE} render={() => <PostForm user={user} history={history} />} />
                 <Route
                     path={ROUTES.LOGIN}
                     render={() => (
                         <Login
-                            OAuthLogin={props.actions.OAuthLogin}
-                            sendEmailLink={props.actions.sendEmailLink}
-                            verifySignIn={props.actions.verifySignIn}
+                            OAuthLogin={actions.OAuthLogin}
+                            sendEmailLink={actions.sendEmailLink}
+                            verifySignIn={actions.verifySignIn}
                         />
                     )}
                 />
-                <Route path={ROUTES.SIGN_UP} component={SignUp} />
+                <Route path={ROUTES.POST} component={PostDetail} />
                 <Route component={NotFound} />
             </Switch>
             <Loading show={false} />
+
             <style jsx global>{`
                 * {
                     box-sizing: border-box;
@@ -42,12 +45,12 @@ const App = (props) => {
 
                 html,
                 body {
-                    font-family: Dotum, '맑은 고딕', 'roboto', 'Helvetica Neue', Helvetica, Arial, '맑은 고딕',
-                        malgun gothic, '돋움', Dotum, sans-serif;
+                    font-family: 'Helvetica Neue', 'Apple SD Gothic Neo', arial, 나눔고딕, 'Nanum Gothic', 돋움, Dotum,
+                        Tahoma, Geneva, sans-serif;
                     color: #202b3d;
                     background-color: #e9eaed;
                     font-size: 1.1rem;
-                    font-weight: 400;
+                    font-weight: 700;
                     line-height: 1.5;
                     display: flex;
                     flex-direction: column;

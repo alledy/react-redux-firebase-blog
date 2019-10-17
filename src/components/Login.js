@@ -19,7 +19,7 @@ function Login({ OAuthLogin, sendEmailLink, history, verifySignIn }) {
 
     return (
         <div className="login container">
-            <h1 className="text-center">로그인</h1>
+            <h1 className="text-center">시작하기</h1>
             <form>
                 <input
                     type="email"
@@ -30,7 +30,7 @@ function Login({ OAuthLogin, sendEmailLink, history, verifySignIn }) {
                 />
                 {/* <input type="password" className="form-control" placeholder="Password" /> */}
                 <button
-                    className="btn btn-lg btn-dark btn-block"
+                    className="btn btn-lg btn-light btn-block"
                     type="submit"
                     onClick={emailSubmitHandler}
                     disabled={!email.trim().length}>
@@ -50,15 +50,18 @@ function Login({ OAuthLogin, sendEmailLink, history, verifySignIn }) {
                 </button>
             </form>
 
-            <p className="text-help text-center">
+            {/* <p className="text-help text-center">
                 계정이 필요하신가요?{' '}
                 <a className="text-center new-account" href="/signup">
                     계정 만들기
                 </a>
-            </p>
+            </p> */}
             <style jsx global>{`
                 .login h1 {
                     margin-top: 100px;
+                    margin-bottom: 20px;
+                    font-weight: 700;
+                    color: white;
                 }
                 .login form {
                     max-width: 320px;

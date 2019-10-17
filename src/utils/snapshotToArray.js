@@ -4,9 +4,9 @@ export function snapshotToArray(snapshot) {
     snapshot.forEach(function(childSnapshot) {
         let item = childSnapshot.val();
         item.key = childSnapshot.key;
-
+        item.index = returnArr.length;
         // Add from front
-        returnArr.unshift(item);
+        returnArr.push(item);
     });
 
     return returnArr;

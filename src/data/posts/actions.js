@@ -64,10 +64,16 @@ export function fetchPosts() {
     };
 }
 
-export function likePost(postId) {
-    return {
-        type: ActionTypes.LIKE_POST,
-        postId,
+// NEED FIX //
+export function likePost(postIndex) {
+    return async function(distpatch, getState) {
+        const post = postsRef
+            .child('entities')
+            .child('index')
+            .equalTo(postIndex);
+
+        const { posts } = getState();
+        await post.set(JSON.parse(JSON.stringify(posts.entities[postIndex].likes + 1)));
     };
 }
 
