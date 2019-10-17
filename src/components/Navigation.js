@@ -16,6 +16,7 @@ const Navigation = ({ user, actions, location, posts, history }) => {
                 <NaviItem to={ROUTES.SIGN_UP} text="회원가입" show={!user} />
 
                 {/* 로그인한 상태 */}
+                <NaviItem to={ROUTES.HOME} text="홈" show={user} />
                 {location.pathname == ROUTES.WRITE ? (
                     <PostSubmit
                         to={ROUTES.HOME}
@@ -30,8 +31,8 @@ const Navigation = ({ user, actions, location, posts, history }) => {
                 ) : (
                     <NaviItem to={ROUTES.WRITE} text="글쓰기" show={user} />
                 )}
-                <NaviItem to={ROUTES.HOME} text="홈" show={user} />
-                <NaviItem to={ROUTES.HOME} action={actions.logout} text="로그아웃" show={user} />
+
+                <NaviItem to={ROUTES.HOME} action={actions.logout} history={history} text="로그아웃" show={user} />
 
                 <Profile show={user} user={user} />
             </ul>

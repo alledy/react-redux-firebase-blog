@@ -1,21 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
+import * as OAuth from '@/constants/OAuth';
 
-function Login({ login, history }) {
-    const handleGoogleAuth = () => {
-        login(history);
+function Login({ OAuthLogin, sendEmailLink, history, verifySignIn }) {
+    useEffect(() => {
+        verifySignIn(history);
+    }, []);
+
+    const handleOAuth = (OAuth) => {
+        OAuthLogin(OAuth, history);
     };
+    const [email, setEmail] = useState('');
+
+    const emailSubmitHandler = (e) => {
+        e.preventDefault();
+        sendEmailLink(email, history);
+    };
+
     return (
         <div className="login container">
             <h1 className="text-center">로그인</h1>
             <form>
-                <input type="email" className="form-control" placeholder="Email" required />
-                <input type="password" className="form-control" placeholder="Password" required />
-                <button className="btn btn-lg btn-primary btn-block" type="submit">
-                    로그인
+                <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Email"
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                {/* <input type="password" className="form-control" placeholder="Password" /> */}
+                <button
+                    className="btn btn-lg btn-dark btn-block"
+                    type="submit"
+                    onClick={emailSubmitHandler}
+                    disabled={!email.trim().length}>
+                    이메일로 로그인
                 </button>
-                <button className="btn btn-lg btn-danger btn-block" type="submit" onClick={handleGoogleAuth}>
-                    Google 로그인
+                <button
+                    className="btn btn-lg btn-primary btn-block"
+                    type="submit"
+                    onClick={() => handleOAuth(OAuth.FACEBOOK)}>
+                    {OAuth.FACEBOOK} 로그인
+                </button>
+                <button
+                    className="btn btn-lg btn-danger btn-block"
+                    type="submit"
+                    onClick={() => handleOAuth(OAuth.GOOGLE)}>
+                    {OAuth.GOOGLE} 로그인
                 </button>
             </form>
 
@@ -38,6 +69,7 @@ function Login({ login, history }) {
                     font-size: 16px;
                     height: auto;
                     padding: 10px;
+                    margin-bottom: 10px;
                 }
                 .login button.btn-primary {
                     background-color: #3b5999;

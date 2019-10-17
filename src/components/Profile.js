@@ -2,7 +2,7 @@ import React from 'react';
 import toggle from '@/hocs/toggle';
 
 const Profile = (props) => {
-    const { name } = props.user;
+    const { name, email } = props.user;
     return (
         <li className="nav-item">
             <a href={'/u/' + props.user.seq} className="nav-link">
@@ -12,7 +12,7 @@ const Profile = (props) => {
                     }
                     alt=""
                 />{' '}
-                {name}
+                {name ? name : email}
             </a>
             <style jsx>{`
                 .nav-item img {

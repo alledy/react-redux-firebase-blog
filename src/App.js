@@ -21,7 +21,16 @@ const App = (props) => {
             <Switch>
                 <Route exact path={[ROUTES.LANDING, ROUTES.HOME]} component={Home} />
                 <Route path={ROUTES.WRITE} render={() => <PostForm user={props.user} history={props.history} />} />
-                <Route path={ROUTES.LOGIN} render={() => <Login login={props.actions.login} />} />
+                <Route
+                    path={ROUTES.LOGIN}
+                    render={() => (
+                        <Login
+                            OAuthLogin={props.actions.OAuthLogin}
+                            sendEmailLink={props.actions.sendEmailLink}
+                            verifySignIn={props.actions.verifySignIn}
+                        />
+                    )}
+                />
                 <Route path={ROUTES.SIGN_UP} component={SignUp} />
                 <Route component={NotFound} />
             </Switch>

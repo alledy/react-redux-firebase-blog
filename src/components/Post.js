@@ -101,7 +101,7 @@ const Post = ({ post }) => {
             <div className="card-body">
                 <h5 className="card-title">{post.title}</h5>
                 <div>
-                    <span className="card-subtitle text-muted">{post.writer.name}</span>
+                    <span className="card-subtitle text-muted">{post.writer.name || post.writer.email}</span>
                     {'  '}
                     <span className="card-subtitle text-muted">{datetime}</span>
                 </div>
@@ -132,11 +132,8 @@ const Post = ({ post }) => {
                     border-radius: 0.5rem;
                     font-size: 0.9rem;
                 }
-                .card .card-title {
-                    font-size: 1rem;
-                }
                 .card .card-subtitle {
-                    font-size: 0.75rem;
+                    font-size: 0.8rem;
                 }
                 .card .card-body {
                     padding: 40px;

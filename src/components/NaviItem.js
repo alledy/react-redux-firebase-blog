@@ -7,7 +7,7 @@ const NaviItem = ({ to, text, action, history }) => {
         if (action) {
             e.preventDefault();
             e.stopPropagation();
-            action();
+            action(history);
         }
     };
 
