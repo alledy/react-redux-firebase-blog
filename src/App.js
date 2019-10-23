@@ -6,7 +6,6 @@ import Loading from '@/components/Loading';
 import NotFound from '@/components/NotFound';
 import PostForm from '@/components/PostForm';
 import Login from '@/components/Login';
-import SignUp from '@/components/Signup';
 import PostDetail from '@/components/PostDetail';
 import * as ROUTES from '@/constants/routes';
 import { Route, Switch, withRouter } from 'react-router-dom';
