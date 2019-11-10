@@ -61,7 +61,7 @@ function Login({ OAuthLogin, sendEmailLink, history, verifySignIn }) {
                     margin-top: 100px;
                     margin-bottom: 20px;
                     font-weight: 700;
-                    color: white;
+                    color: black;
                 }
                 .login form {
                     max-width: 320px;

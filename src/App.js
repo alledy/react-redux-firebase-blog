@@ -12,12 +12,14 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 
 const App = (props) => {
     const { posts, user, history, actions } = props;
+    // App 컴포넌트 마운트 시, user 정보 없으면 /login 라우팅, 있으면 /home
     useEffect(() => {
         props.actions.fetchUser(history);
     }, []);
 
     return (
         <div>
+            {/* exact=False 이므로 root를 포함하는 모든 url에 Navigation 렌더링*/}
             <Route path={ROUTES.LANDING} component={Navigation} />
             <Switch>
                 <Route exact path={[ROUTES.LANDING, ROUTES.HOME]} component={Home} />

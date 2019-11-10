@@ -16,6 +16,7 @@ const Navigation = ({ user, actions, location, posts, history }) => {
 
                 {/* 로그인한 상태 */}
                 <NaviItem to={ROUTES.HOME} text="홈" show={user} />
+                {/* 글쓰기창에서는 저장 컴포넌트(PostSubmit) 렌더링, 그 외는 글쓰기창 링크 */}
                 {location.pathname == ROUTES.WRITE ? (
                     <PostSubmit
                         to={ROUTES.HOME}
