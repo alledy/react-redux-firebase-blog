@@ -7,4 +7,4 @@ export const WRITE = '/write';
 export const POST = '/:user/:index';
 export const USER_POST = '/:user';
 export const ACCOUNT = '/account';
-export const ADMIN = '/admin';
+export const PRIVACY_POLICY = '/privacy-policy';

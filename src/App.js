@@ -7,6 +7,7 @@ import NotFound from '@/components/NotFound';
 import PostForm from '@/components/PostForm';
 import Login from '@/components/Login';
 import PostDetail from '@/components/PostDetail';
+import PrivacyPolicy from '@/components/PrivacyPolicy';
 import * as ROUTES from '@/constants/routes';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
@@ -35,6 +36,7 @@ const App = (props) => {
                     )}
                 />
                 <Route path={ROUTES.POST} component={PostDetail} />
+                <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
                 <Route component={NotFound} />
             </Switch>
             <Loading show={false} />
