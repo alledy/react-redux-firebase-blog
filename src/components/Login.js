@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import * as ROUTES from '@/constants/routes';
 import * as OAuth from '@/constants/OAuth';
 
 function Login({ OAuthLogin, sendEmailLink, history, verifySignIn }) {
@@ -49,13 +50,9 @@ function Login({ OAuthLogin, sendEmailLink, history, verifySignIn }) {
                     {OAuth.GOOGLE} 로그인
                 </button>
             </form>
-
-            {/* <p className="text-help text-center">
-                계정이 필요하신가요?{' '}
-                <a className="text-center new-account" href="/signup">
-                    계정 만들기
-                </a>
-            </p> */}
+            <p className="text-help text-center">
+                <Link to={ROUTES.HOME}>시작하기 전에 둘러보기</Link>
+            </p>
             <style jsx global>{`
                 .login h1 {
                     margin-top: 100px;

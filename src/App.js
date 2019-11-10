@@ -13,20 +13,18 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 
 const App = (props) => {
     const { posts, user, history, actions } = props;
-    // App 컴포넌트 마운트 시, user 정보 없으면 /login 라우팅, 있으면 /home
+    // App 컴포넌트 마운트 시, user 정보 있으면 /home
     useEffect(() => {
         props.actions.fetchUser(history);
     }, []);
 
     return (
         <div>
-            {/* exact=False 이므로 root를 포함하는 모든 url에 Navigation 렌더링*/}
-            <Route path={ROUTES.LANDING} component={Navigation} />
+            <Navigation />
             <Switch>
-                <Route exact path={[ROUTES.LANDING, ROUTES.HOME]} component={Home} />
-                <Route path={ROUTES.WRITE} render={() => <PostForm user={user} history={history} />} />
                 <Route
-                    path={ROUTES.LOGIN}
+                    exact
+                    path={ROUTES.LANDING}
                     render={() => (
                         <Login
                             OAuthLogin={actions.OAuthLogin}
@@ -35,6 +33,8 @@ const App = (props) => {
                         />
                     )}
                 />
+                <Route path={ROUTES.HOME} component={Home} />
+                <Route path={ROUTES.WRITE} render={() => <PostForm user={user} history={history} />} />
                 <Route path={ROUTES.POST} component={PostDetail} />
                 <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
                 <Route component={NotFound} />

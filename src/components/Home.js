@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useCallback } from 'react';
 import connectStore from '@/hocs/connectStore';
 import Post from '@/components/Post';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import * as ROUTES from '@/constants/routes';
 
 const Home = (props) => {
@@ -73,13 +73,28 @@ const Home = (props) => {
         props.actions.fetchPosts();
     }, []);
 
+    // useEffect(() => {
+    //     if (props.user) {
+    //         history.push('/home');
+    //     }
+    // }, [props.user]);
+
     return (
         <>
             {/* <Route path={ROUTES.USER_POST} component={userPostList} /> */}
-            <div className="posts container">{postList}</div>
+            <div className="posts container">
+                {postList}
+                <div className="text-center">
+                    <Link to={ROUTES.PRIVACY_POLICY}>개인정보 처리방침</Link>
+                </div>
+            </div>
+
             <style jsx>{`
                 .container {
                     max-width: 600px;
+                }
+                .container .text-center {
+                    margin-top: 20px;
                 }
             `}</style>
         </>

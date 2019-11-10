@@ -5,6 +5,7 @@ import Profile from '@/components/Profile';
 import NaviItem from '@/components/NaviItem';
 import * as ROUTES from '@/constants/routes';
 import PostSubmit from '@/components/PostSubmit';
+import { withRouter } from 'react-router-dom';
 
 const Navigation = ({ user, actions, location, posts, history }) => {
     return (
@@ -12,7 +13,7 @@ const Navigation = ({ user, actions, location, posts, history }) => {
             <Logo to={ROUTES.HOME} />
             <ul className="nav">
                 {/* 로그인하지 않은 상태 */}
-                <NaviItem to={ROUTES.LOGIN} text="시작하기" show={!user} />
+                <NaviItem to={ROUTES.LANDING} text="시작하기" show={!user} />
 
                 {/* 로그인한 상태 */}
                 <NaviItem to={ROUTES.HOME} text="홈" show={user} />
@@ -61,4 +62,4 @@ const Navigation = ({ user, actions, location, posts, history }) => {
     );
 };
 
-export default connectStore(Navigation);
+export default withRouter(connectStore(Navigation));

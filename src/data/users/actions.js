@@ -29,7 +29,7 @@ export function OAuthLogin(OAuth, history) {
                     await authRef.signInWithPopup(google_provider);
                     break;
             }
-            history.push('/');
+            history.push('/home');
             alert('성공적으로 로그인하였습니다.');
         } catch (e) {
             alert('로그인에 실패했습니다.\n에러메세지 : ' + e.code);
@@ -59,7 +59,7 @@ export function verifySignIn(history) {
                 if (email) {
                     const result = await authRef.signInWithEmailLink(email, window.location.href);
                     dispatch(fetchUser());
-                    history.replace('/');
+                    history.replace('/home');
                     const user = result.user;
                     alert(`${user.email}로 로그인 되었습니다.`);
                     window.localStorage.removeItem('emailForSignIn');
@@ -79,12 +79,13 @@ export function fetchUser(history) {
                     type: ActionTypes.FETCH_USER,
                     user,
                 });
+                history.push('/home');
             } else {
                 dispatch({
                     type: ActionTypes.RESET_AUTH,
                     user: null,
                 });
-                history.push('/login');
+                // history.push('/login');
             }
         });
     };
@@ -94,7 +95,7 @@ export function logout(history) {
     return async function() {
         try {
             authRef.signOut();
-            history.push('/login');
+            history.push('/');
             alert('로그아웃되었습니다.');
         } catch (e) {
             console.error(e);
