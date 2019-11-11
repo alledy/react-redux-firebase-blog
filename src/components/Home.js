@@ -17,7 +17,7 @@ const Home = (props) => {
     //     });
     // }, [props.posts.entities]);
 
-    // 최신순 정렬
+    // 홈에서 포스트 리스트 최신순 정렬
     const postList = props.posts.entities
         .slice(0)
         .reverse()

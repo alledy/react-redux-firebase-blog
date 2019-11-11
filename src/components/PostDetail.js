@@ -1,26 +1,40 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import MarkdownPreview from '@/components/MarkdownPreview';
 import classnames from 'classnames';
 import CommentList from '@/components/CommentList';
 import CommentForm from '@/components/CommentForm';
 import connectStore from '@/hocs/connectStore';
 
-const PostDetail = ({ match, posts, comments, actions }) => {
+const PostDetail = ({ match, posts, comments, actions, user }) => {
     const index = parseInt(match.params.index);
-    const user = match.params.user;
+    const postWriter = match.params.user;
+
     const post = posts.entities[index];
     const title = post.title;
     const contents = post.contents;
+
+    // PostDetail 마운트 시 해당 포스트의 코멘트 가져오기
+    useEffect(() => {
+        actions.fetchComments(index);
+    }, []);
 
     const likeHandler = (e) => {
         e.preventDefault();
         actions.likePost(post.index);
     };
+
+    const writeCommentHandler = useCallback(
+        (postSeq, contents) => {
+            actions.writeComment(postSeq, contents, user);
+        },
+        [user]
+    );
+
     return (
         <div className="post-detail container">
             <div className="card">
                 <div className="card-body">
-                    <h5 className="card-title header">@{user}</h5>
+                    <h5 className="card-title header">@{postWriter}</h5>
                     <MarkdownPreview title={title} body={contents} />
 
                     <div className="card-info">
@@ -34,11 +48,11 @@ const PostDetail = ({ match, posts, comments, actions }) => {
                             {post.likes} 개
                         </button>
                         <span className="comment-count">
-                            <i className="far fa-comment-alt" /> {post.comments} 개
+                            <i className="far fa-comment-alt" /> {comments.length} 개
                         </span>
                     </div>
-                    <CommentList comments={comments[index]} />
-                    <CommentForm postSeq={index} />
+                    <CommentList comments={comments} />
+                    <CommentForm postSeq={index} onCommentSubmit={writeCommentHandler} user={user} />
                 </div>
             </div>
 

@@ -102,6 +102,7 @@ const Post = ({ post, index }) => {
             <div className="card-body">
                 {/* <span className="card-subtitle writer text-muted">{post.writer.name || post.writer.email}</span> */}
                 <h5 className="card-title">
+                    {/* PostDetail 컴포넌트 링크 */}
                     <Link to={`/${post.writer.name || post.writer.email}/${index}`}>{post.title}</Link>
                 </h5>
                 <div>

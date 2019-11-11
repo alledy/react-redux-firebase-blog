@@ -38,6 +38,7 @@ const CodeEditor = ({ editBody, body }) => {
         if (!cursor) return;
         codeMirror.setCursor(cursor);
     }, [body]);
+
     return (
         <div className="code-editor material">
             <div className="editor" ref={editor}></div>

@@ -12,8 +12,8 @@ const Comment = ({ comment }) => {
     return (
         <li className="comment">
             <div className="comment-info">
-                <h6 className="comment-writer">{writer.name}</h6>
-                <div className="comment-datetime">{datetime}</div>
+                <h6 className="comment-writer">{writer.name || writer.email}</h6>
+                <span className="comment-datetime"> {datetime}</span>
             </div>
             <p className="comment-text">{contents}</p>
             <style jsx>{`
@@ -22,12 +22,17 @@ const Comment = ({ comment }) => {
                     border-bottom: 1px solid #e6ecf5;
                     background-color: #fafbfd;
                     position: relative;
+                    font-size: 0.8rem;
                 }
                 li.comment:first-child {
                     border-top: 1px solid #e6ecf5;
                 }
+                li.comment .comment-datetime {
+                    font-size: 0.7rem;
+                }
                 li.comment .comment-text {
                     padding-top: 20px;
+                    font-weight: 400;
                 }
             `}</style>
         </li>

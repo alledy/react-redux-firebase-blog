@@ -44,9 +44,8 @@ export function writePost(title, contents, user, history) {
             };
             await postsRef.push().set(JSON.parse(JSON.stringify(newPost)));
             history.push('/home');
-            // dispatch(incrementSeq(seq + 1));
         } catch (e) {
-            alert('포스트 저장에 실패하였습니다.');
+            alert('포스트 저장에 실패했습니다.');
             console.error(e);
         }
     };

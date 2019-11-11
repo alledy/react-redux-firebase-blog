@@ -7,6 +7,7 @@ const CommentForm = (props) => {
         lineHeight = 20,
         placeholder = '댓글을 입력하세요...',
         onCommentSubmit = () => {},
+        user,
     } = props;
     const textareaEl = useRef(null);
     const [contents, setContents] = useState('');
@@ -19,7 +20,7 @@ const CommentForm = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        onCommentSubmit(postSeq, contents);
+        onCommentSubmit(postSeq, contents, user);
         setContents('');
     };
 

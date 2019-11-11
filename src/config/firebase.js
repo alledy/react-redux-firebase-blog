@@ -5,8 +5,8 @@ firebase.initializeApp(FirebaseConfig);
 
 const databaseRef = firebase.database().ref();
 export const postsRef = databaseRef.child('posts');
+export const commentsRef = databaseRef.child('comments');
 export const authRef = firebase.auth();
-
 export const google_provider = new firebase.auth.GoogleAuthProvider();
 export const facebook_provider = new firebase.auth.FacebookAuthProvider();
 

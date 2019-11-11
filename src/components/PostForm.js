@@ -17,9 +17,11 @@ const PostForm = (props) => {
                             value={props.posts.edit.title}
                         />
                     </div>
+                    {/* 스토어에 업데이트 */}
                     <CodeEditor editBody={props.actions.editPostBody} body={props.posts.edit.body} />
                 </div>
                 <div className="pane right">
+                    {/* 스토어에 업데이트된 값 가져와서 렌더링 */}
                     <MarkdownPreview title={props.posts.edit.title} body={props.posts.edit.body} />
                 </div>
             </div>

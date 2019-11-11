@@ -6,8 +6,8 @@ const CommentList = (props) => {
 
     return (
         <ul className="comment-list">
-            {comments.map((comment) => (
-                <Comment key={comment.seq} comment={comment} />
+            {comments.map((comment, index) => (
+                <Comment key={index} comment={comment} />
             ))}
             <style jsx global>{`
                 ul.comment-list {

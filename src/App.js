@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import connectStore from '@/hocs/connectStore';
 import Navigation from '@/components/Navigation';
 import Home from '@/components/Home';
