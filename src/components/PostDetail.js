@@ -20,11 +20,11 @@ const PostDetail = ({ match, posts, comments, actions, user }) => {
 
     const likeHandler = (e) => {
         e.preventDefault();
-        actions.likePost(post.index);
+        actions.likePost(post.key, post.index);
     };
 
     const writeCommentHandler = useCallback(
-        (postSeq, contents) => {
+        (postSeq, contents, user) => {
             actions.writeComment(postSeq, contents, user);
         },
         [user]

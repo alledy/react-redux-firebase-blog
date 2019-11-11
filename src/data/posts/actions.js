@@ -1,5 +1,5 @@
 import * as ActionTypes from '@/data/rootActionTypes';
-import { postsRef } from '@/config/firebase';
+import { postsRef, authRef, databaseRef } from '@/config/firebase';
 import { snapshotToArray } from '@/utils/snapshotToArray';
 
 // export function incrementSeq(seq) {
@@ -42,7 +42,12 @@ export function writePost(title, contents, user, history) {
                 comments: 0,
                 likesOfMe: false,
             };
-            await postsRef.push().set(JSON.parse(JSON.stringify(newPost)));
+            const newPostKey = postsRef.push().key;
+            const updates = {};
+            const uid = authRef.currentUser.uid;
+            updates['/posts/' + newPostKey] = newPost;
+            updates['/user-posts/' + uid + '/' + newPostKey] = newPost;
+            await databaseRef.update(updates);
             history.push('/home');
         } catch (e) {
             alert('포스트 저장에 실패했습니다.');
@@ -63,16 +68,27 @@ export function fetchPosts() {
     };
 }
 
-// NEED FIX //
-export function likePost(postIndex) {
-    return async function(distpatch, getState) {
-        const post = postsRef
-            .child('entities')
-            .child('index')
-            .equalTo(postIndex);
-
+export function likePost(postKey, postIndex) {
+    return async function(dispatch, getState) {
+        // likesOfMe가 false일 때에만 likes 카운트 update
         const { posts } = getState();
-        await post.set(JSON.parse(JSON.stringify(posts.entities[postIndex].likes + 1)));
+        if (!posts.entities[postIndex].likesOfMe) {
+            dispatch({ type: ActionTypes.LIKE_POST });
+            await postsRef
+                .child(postKey)
+                .child('likes')
+                .transaction(function(current_value) {
+                    return current_value + 1;
+                });
+        }
+
+        // likesOfMe가 false일 때 true로 업데이트
+        await postsRef
+            .child(postKey)
+            .child('likesOfMe')
+            .transaction(function(current_value) {
+                if (!current_value) return true;
+            });
     };
 }
 

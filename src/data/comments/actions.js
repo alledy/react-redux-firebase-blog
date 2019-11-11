@@ -1,5 +1,5 @@
 import * as ActionTypes from '@/data/rootActionTypes';
-import { commentsRef } from '@/config/firebase';
+import { commentsRef, databaseRef } from '@/config/firebase';
 import { snapshotToArray } from '@/utils/snapshotToArray';
 
 // Firebase DB에서 해당 postId의 코멘트를 가져와, 배열 형태로 가공 후 payload로 전달
@@ -29,7 +29,10 @@ export function writeComment(postId, contents, writer) {
                 postId,
                 createAt: Date.now(),
             };
-            await commentsRef.push().set(JSON.parse(JSON.stringify(newComment)));
+            const newCommentKey = commentsRef.push().key;
+            const updates = {};
+            updates['/comments/' + newCommentKey] = newComment;
+            await databaseRef.update(updates);
         } catch (e) {
             alert('코멘트 저장에 실패했습니다.');
             console.error(e);
