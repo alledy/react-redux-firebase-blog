@@ -92,6 +92,13 @@ function Login({ OAuthLogin, sendEmailLink, history, verifySignIn }) {
                     font-weight: 900;
                     color: #3a5999;
                 }
+                a {
+                    font-weight: 500;
+                    color: #3a5999;
+                }
+                a:hover {
+                    text-decoration: none;
+                }
             `}</style>
         </div>
     );

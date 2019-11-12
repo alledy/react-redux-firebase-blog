@@ -20,7 +20,7 @@ const PostDetail = ({ match, posts, comments, actions, user }) => {
 
     const likeHandler = (e) => {
         e.preventDefault();
-        actions.likePost(post.key, post.index);
+        actions.likePost(post.key);
     };
 
     const writeCommentHandler = useCallback(
@@ -40,12 +40,7 @@ const PostDetail = ({ match, posts, comments, actions, user }) => {
                     <div className="card-info">
                         <hr />
                         <button type="button" className="thumb-count" onClick={likeHandler}>
-                            <i
-                                className={classnames('far fa-thumbs-up', {
-                                    on: post.likesOfMe,
-                                })}
-                            />{' '}
-                            {post.likes} 개
+                            <i className="far fa-thumbs-up" /> {post.likes} 개
                         </button>
                         <span className="comment-count">
                             <i className="far fa-comment-alt" /> {comments.length} 개

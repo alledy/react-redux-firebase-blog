@@ -40,7 +40,6 @@ export function writePost(title, contents, user, history) {
                 createAt: Date.now(),
                 likes: 0,
                 comments: 0,
-                likesOfMe: false,
             };
             const newPostKey = postsRef.push().key;
             const updates = {};
@@ -68,27 +67,35 @@ export function fetchPosts() {
     };
 }
 
-export function likePost(postKey, postIndex) {
-    return async function(dispatch, getState) {
-        // likesOfMe가 false일 때에만 likes 카운트 update
-        const { posts } = getState();
-        if (!posts.entities[postIndex].likesOfMe) {
-            dispatch({ type: ActionTypes.LIKE_POST });
-            await postsRef
-                .child(postKey)
-                .child('likes')
-                .transaction(function(current_value) {
-                    return current_value + 1;
-                });
-        }
+export function likePost(postKey) {
+    return async function(dispatch) {
+        const uid = authRef.currentUser.uid;
 
-        // likesOfMe가 false일 때 true로 업데이트
-        await postsRef
-            .child(postKey)
-            .child('likesOfMe')
-            .transaction(function(current_value) {
-                if (!current_value) return true;
-            });
+        // user-likes에 유저 정보가 없거나, 있어도 해당 포스트키가 없는 경우에 실행
+        databaseRef.child('user-likes').on('value', (snapshot) => {
+            if (
+                !snapshot.child(uid).exists() ||
+                !snapshot
+                    .child(uid)
+                    .child(postKey)
+                    .exists()
+            ) {
+                dispatch({ type: ActionTypes.LIKE_POST });
+                // 해당 post의 총 likes 값 +1
+                // firebase transaction 사용
+                postsRef
+                    .child(postKey)
+                    .child('likes')
+                    .transaction(function(current_value) {
+                        return current_value + 1;
+                    });
+
+                // user-likes에 user가 like한 포스트키 업데이트
+                const updates = {};
+                updates['/user-likes/' + uid + '/' + postKey] = postKey;
+                databaseRef.update(updates);
+            }
+        });
     };
 }
 

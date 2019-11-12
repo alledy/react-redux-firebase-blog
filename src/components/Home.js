@@ -22,7 +22,7 @@ const Home = (props) => {
         .slice(0)
         .reverse()
         .map((post, index) => {
-            return <Post key={index} post={post} index={post.index} />;
+            return <Post key={index} post={post} index={post.index} comments={props.comments} />;
         });
 
     // const postsObj = useMemo(() => {
