@@ -25,6 +25,7 @@ This application is made of:
 - styled-jsx
 - Webpack
 - Marked, CodeMirror, Prismjs
+- date-fns
   
 ## Functionality Overview
 
@@ -33,13 +34,16 @@ The example application is a social blogging site called `Guru`. This applicatio
 General Functionality:
 
 - __Passwordless Authentication__ - Email link, OAuth(Facebook and Google) 
+  ![](./src/img/guru_01.png)
+
+- Display list of posts, likes of the post and number of comments(A user can only press __Like once__ for the same post)
+  ![](./src/img/guru_02.png)
 
 - Writing a post with __markdown editor__
+  ![](./src/img/guru_03.png)
 
-- Display likes of a post(A user can only press __Like once__ for the same post)
-  
 - Display __created time in words__ in the posts and comments(Used date-fns library)
-
+  ![](./src/img/guru_04.png)
 
 
 
