@@ -2,36 +2,10 @@ import * as ActionTypes from '@/data/rootActionTypes';
 import { postsRef, authRef, databaseRef } from '@/config/firebase';
 import { snapshotToArray } from '@/utils/snapshotToArray';
 
-// export function incrementSeq(seq) {
-//     return async function(dispatch) {
-//         dispatch({ type: ActionTypes.INCREMENT_SEQ });
-//         await seqRef.push().set(seq);
-//     };
-// }
-
-// export function getSeq() {
-//     return async function(dispatch) {
-//         seqRef.on('value', (snapshot) => {
-//             const payload = snapshotToArray(snapshot);
-
-//             if (payload.length > 0) {
-//                 dispatch({
-//                     type: ActionTypes.GET_SEQ,
-//                     payload: payload[0],
-//                 });
-//             } else {
-//                 dispatch({
-//                     type: ActionTypes.GET_SEQ,
-//                     payload: 0,
-//                 });
-//             }
-//         });
-//     };
-// }
-
 export function writePost(title, contents, user, history) {
     return async function(dispatch) {
         try {
+            dispatch({ type: ActionTypes.SHOW_LOADING });
             dispatch({ type: ActionTypes.WRITE_POST });
             const newPost = {
                 writer: user,
@@ -51,19 +25,28 @@ export function writePost(title, contents, user, history) {
         } catch (e) {
             alert('포스트 저장에 실패했습니다.');
             console.error(e);
+        } finally {
+            dispatch({ type: ActionTypes.HIDE_LOADING });
         }
     };
 }
 
 export function fetchPosts() {
     return async function(dispatch) {
-        await postsRef.on('value', (snapshot) => {
-            const payload = snapshotToArray(snapshot);
-            dispatch({
-                type: ActionTypes.FETCH_POSTS,
-                payload,
+        try {
+            dispatch({ type: ActionTypes.SHOW_LOADING });
+            await postsRef.on('value', (snapshot) => {
+                const payload = snapshotToArray(snapshot);
+                dispatch({
+                    type: ActionTypes.FETCH_POSTS,
+                    payload,
+                });
             });
-        });
+        } catch (e) {
+            console.error(e);
+        } finally {
+            dispatch({ type: ActionTypes.HIDE_LOADING });
+        }
     };
 }
 
@@ -72,7 +55,7 @@ export function likePost(postKey) {
         const uid = authRef.currentUser.uid;
 
         // user-likes에 유저 정보가 없거나, 있어도 해당 포스트키가 없는 경우에 실행
-        databaseRef.child('user-likes').on('value', (snapshot) => {
+        await databaseRef.child('user-likes').on('value', (snapshot) => {
             if (
                 !snapshot.child(uid).exists() ||
                 !snapshot

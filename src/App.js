@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import connectStore from '@/hocs/connectStore';
 import Navigation from '@/components/Navigation';
 import Home from '@/components/Home';
@@ -12,7 +12,7 @@ import * as ROUTES from '@/constants/routes';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 const App = (props) => {
-    const { posts, user, history, actions } = props;
+    const { user, history, actions } = props;
     // App 컴포넌트 마운트 시, user 정보 있으면 /home
     useEffect(() => {
         props.actions.fetchUser(history);
@@ -39,8 +39,7 @@ const App = (props) => {
                 <Route path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
                 <Route component={NotFound} />
             </Switch>
-            <Loading show={false} />
-
+            <Loading show={props.loading} />
             <style jsx global>{`
                 * {
                     box-sizing: border-box;

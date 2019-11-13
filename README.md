@@ -44,14 +44,3 @@ General Functionality:
 
 - Display __created time in words__ in the posts and comments(Used date-fns library)
   ![](./src/img/guru_04.png)
-
-
-
-
-
-
-
- 
-
-
-
