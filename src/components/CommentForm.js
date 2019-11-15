@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 const CommentForm = (props) => {
     const {
-        postSeq,
+        postKey,
         minHeight = 20,
         lineHeight = 20,
         placeholder = '댓글을 입력하세요...',
@@ -20,7 +20,7 @@ const CommentForm = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        onCommentSubmit(postSeq, contents, user);
+        onCommentSubmit(postKey, contents, user);
         setContents('');
     };
 

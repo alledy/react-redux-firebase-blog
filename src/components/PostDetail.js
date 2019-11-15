@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
 import MarkdownPreview from '@/components/MarkdownPreview';
-import classnames from 'classnames';
 import CommentList from '@/components/CommentList';
 import CommentForm from '@/components/CommentForm';
 import connectStore from '@/hocs/connectStore';
@@ -12,11 +11,6 @@ const PostDetail = ({ match, posts, comments, actions, user }) => {
     const post = posts.entities[index];
     const title = post.title;
     const contents = post.contents;
-
-    // PostDetail 마운트 시 해당 포스트의 코멘트 가져오기
-    useEffect(() => {
-        actions.fetchComments(index);
-    }, []);
 
     const likeHandler = (e) => {
         e.preventDefault();
@@ -43,11 +37,11 @@ const PostDetail = ({ match, posts, comments, actions, user }) => {
                             <i className="far fa-thumbs-up" /> {post.likes} 개
                         </button>
                         <span className="comment-count">
-                            <i className="far fa-comment-alt" /> {comments.length} 개
+                            <i className="far fa-comment-alt" /> {comments[post.key] ? comments[post.key].length : 0} 개
                         </span>
                     </div>
-                    <CommentList comments={comments} />
-                    <CommentForm postSeq={index} onCommentSubmit={writeCommentHandler} user={user} />
+                    <CommentList comments={comments[post.key]} />
+                    <CommentForm postKey={post.key} onCommentSubmit={writeCommentHandler} user={user} />
                 </div>
             </div>
 

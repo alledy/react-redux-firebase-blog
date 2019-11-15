@@ -5,7 +5,7 @@ import distanceInWords from 'date-fns/distance_in_words_to_now';
 import removeMd from 'remove-markdown';
 import { Link } from 'react-router-dom';
 
-const Post = ({ post, index }) => {
+const Post = ({ post, index, comments = [] }) => {
     const datetime = distanceInWords(post.createAt, {
         locale,
         addSuffix: true,
@@ -39,9 +39,9 @@ const Post = ({ post, index }) => {
                         />{' '}
                         {post.likes} 개
                     </button>
-                    {/* <span className="comment-count">
+                    <span className="comment-count">
                         <i className="far fa-comment-alt" /> {comments.length} 개
-                    </span> */}
+                    </span>
                 </div>
             </div>
             <style jsx global>{`

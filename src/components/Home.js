@@ -10,11 +10,23 @@ const Home = (props) => {
         .slice(0)
         .reverse()
         .map((post, index) => {
-            return <Post key={index} post={post} index={post.index} comments={props.comments} />;
+            // 전체 코멘트 중 해당 postKey 값만 저장
+            const comments = props.comments[post.key];
+            return (
+                <Post
+                    key={index}
+                    post={post}
+                    index={post.index}
+                    fetchComments={props.actions.fetchComments}
+                    comments={comments}
+                />
+            );
         });
 
+    // 홈 마운트 시 전체 포스트와 전체 코멘트 fetch
     useEffect(() => {
         props.actions.fetchPosts();
+        props.actions.fetchComments();
     }, []);
 
     // useEffect(() => {
